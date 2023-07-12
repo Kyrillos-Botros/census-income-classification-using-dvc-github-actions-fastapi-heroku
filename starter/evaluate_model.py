@@ -3,6 +3,7 @@ import argparse
 import logging
 import pandas as pd
 import dvc.api
+from dvclive import Live
 import io
 import pickle
 from ml.data import process_data
@@ -16,9 +17,10 @@ logger = logging.getLogger()
 
 def go(args):
 
+    # Reading testing data
     logger.info("Start: testing_data reading from s3 remote storage")
     testing_data_bytes = dvc.api.read(
-        path= "testing_data", # insert the path of the file that exists in the storage
+        path= args.input_artifact, # insert the path of the file that exists in the storage
         remote= args.remote_storage, # select the remote storage that exists in .dvc/config if there is more than one
         mode= "rb" # reading data as bytes
     )
@@ -26,30 +28,42 @@ def go(args):
     testing_dataframe = pd.read_csv(testing_data_byte_stream)
     logger.info("End: testing_data reading from s3 remote storage")
 
+    # Reading models
     logger.info("Start: models reading from s3 remote storage")
-    models = dvc.api.read(
-        path= args.models, # insert the path of the file that exists in the storage
+    with dvc.api.open(
+        path= args.models_path, # insert the path of the file that exists in the storage
         remote= args.remote_storage, # select the remote storage that exists in .dvc/config if there is more than one
         mode= "rb" # reading data as bytes
-    )
-    models = pickle.load(models)
+    ) as model_file:
+        models = pickle.load(model_file)
+
     logger.info("End: models reading from s3 remote storage")
 
+    # Selecting category columns only
     cat_features = testing_dataframe.select_dtypes(include=['object']).columns
+    cat_features = cat_features[:-1]
 
-
+    # processing testing data
     logger.info("Start: processing testing data")
     X_test, y_test, _, _ = process_data(
         testing_dataframe, categorical_features=cat_features, label="salary", training=False, encoder=models["encoder"], lb= models["lb"]
     )
     logger.info("End: processing testing data")
 
+    # Evaluating model
     logger.info("Start: predictions")
     preds = inference(model= models["model"], X= X_test)
     logger.info("End: predictions")
 
     logger.info("Start: Evaluation")
     precision, recall, fbeta= compute_model_metrics(y_test, preds=preds)
+
+    with Live(resume= True) as live:
+        live.next_step()
+        live.log_metric("precision", precision)
+        live.log_metric("recall", recall)
+        live.log_metric("fbeta", fbeta)
+
     logger.info(f"precision= {precision}"
                 f"\n recall= {recall}"
                 f"\n fbeta= {fbeta}"
@@ -61,7 +75,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--input_artifact",
         type= str,
-        help= "The name of preprocessed data file",
+        help= "The path of testing data file",
+        required= True
+    )
+
+    parser.add_argument(
+        "--models_path",
+        type= str,
+        help= "The path of models file",
         required= True
     )
 
@@ -70,22 +91,6 @@ if __name__ == "__main__":
         type= str,
         help= "the remote name that exists in .dvc/config",
         required=True
-    )
-
-    parser.add_argument(
-        "--test_size",
-        type= float,
-        help= "The size of test data",
-        required= False,
-        default= 0.2
-    )
-
-    parser.add_argument(
-        "--random_state",
-        type= int,
-        help= "Random State",
-        required= False,
-        default= 42
     )
 
     args = parser.parse_args()

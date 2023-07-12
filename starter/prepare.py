@@ -47,32 +47,32 @@ def go(args):
     ## Removing outliers
     logger.info("Removing outliers from data")
     idx = raw_dataframe["fnlgt"].between(args.min_fnlgt, args.max_fnlgt) & \
-          raw_dataframe["capital loss"].between(args.min_capital_loss, args.max_capital_loss) & \
-          raw_dataframe["capital gain"].between(args.min_capital_gain, args.max_capital_gain)
+          raw_dataframe["capital-loss"].between(args.min_capital_loss, args.max_capital_loss) & \
+          raw_dataframe["capital-gain"].between(args.min_capital_gain, args.max_capital_gain)
     raw_dataframe = raw_dataframe[idx].copy()
 
     # Create a temporary directory to save the output artifact
     logger.info("Start: Uploading the file to the remote storage")
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        temp_path = os.path.join(tmp_dir, args.output_artifact)
-        raw_dataframe.to_csv(temp_path, index=False)
-        os.system(f"cd {tmp_dir}")
 
-        # logging artifact
-        with Live(save_dvc_exp=True) as live:
-            live.log_artifact(args.output_artifact,
-                              type="cleaned_data",
-                              name= args.output_artifact,
-                              desc="Preprocessed Data"
-                              )
+    raw_dataframe.to_csv(args.output_artifact, index=False)
+    file_name = os.path.basename(args.output_artifact)
+    file_dir = os.path.dirname(args.output_artifact)
+    current_dir = os.getcwd()
 
-        os.system(f"dvc add . "
-                  f"&& git add ."
-                  f"&& git commit -m \"tracking {args.output_artifact}.dvc\" "
-                  f"&& git push"
-                  f"&& dvc push --remote {args.remote_storage}"
-                  f"&& cd ..")
+    # logging artifact
+    with Live(resume= True) as live:
+        live.next_step()
+        live.log_artifact(path= args.output_artifact,
+                          type="dataset",
+                          desc="Preprocessed Data"
+                          )
 
+    os.system(f"cd {file_dir} && dvc add {file_name} "
+              f"&& git add {file_name}.dvc "
+              f"&& git commit -m \"tracking {file_name}.dvc \" "
+              f"&& git push " 
+              f"&& dvc push --remote {args.remote_storage} {file_name}"
+              f"&& cd {current_dir}")
 
     logger.info("End: Uploading the file to the remote storage")
 

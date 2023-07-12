@@ -1,0 +1,4 @@
+[core]
+    remote = census_storage
+['remote "census_storage"']
+    url = s3://kyrillos-botros-census-storage
