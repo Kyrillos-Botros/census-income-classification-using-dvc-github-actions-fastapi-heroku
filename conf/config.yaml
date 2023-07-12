@@ -1,0 +1,24 @@
+main:
+  repo_path: "https://github.com/Kyrillos-Botros/census-income-prediction-using-dvc-github-actions-fastapi-heroku.git"
+storage:
+  url: "s3://kyrillos-botros-census-storage"
+  remote: "census_storage"
+data:
+  min_fnlgt: 1.2e04
+  max_fnlgt: 6e05
+  min_capital_loss: 0
+  max_capital_loss: 250
+  min_capital_gain: 0
+  max_capital_gain: 15000
+modeling:
+  random_state: 42
+  test_size: 0.2
+  random_forest:
+    n_estimators: 200
+    max_depth: 50
+    min_samples_split: 4
+    min_samples_leaf: 3
+    n_jobs: -1
+    criterion: mae
+    max_features: 0.5
+    oob_score: true
