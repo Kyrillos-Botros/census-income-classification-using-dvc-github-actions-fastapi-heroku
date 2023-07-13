@@ -30,7 +30,7 @@ stages:
     - ../dvclive/metrics.json
   train:
     cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
-      census_storage --random_state 42 --model_config /tmp/tmpsv11thm2/model_config.json
+      census_storage --random_state 42 --model_config /tmp/tmp51mniz3i/model_config.json
       --output_artifact ../model/rf.pkl
     deps:
     - ../data/train-data.csv
