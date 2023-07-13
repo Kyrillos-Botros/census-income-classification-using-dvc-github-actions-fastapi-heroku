@@ -60,14 +60,14 @@ def go(args):
     current_dir = os.getcwd()
 
     # logging artifact
-    with Live(resume= True) as live:
+    with Live(resume= True, dir="../dvclive") as live:
         live.next_step()
         live.log_artifact(path= args.output_artifact,
                           type="dataset",
                           desc="Preprocessed Data"
                           )
 
-    os.system(f"cd {file_dir} && dvc add {file_name} "
+    os.system(f"cd {file_dir} && dvc add {file_name} && dvc commit {file_name} "
               f"&& git add {file_name}.dvc "
               f"&& git commit -m \"tracking {file_name}.dvc \" "
               f"&& git push " 

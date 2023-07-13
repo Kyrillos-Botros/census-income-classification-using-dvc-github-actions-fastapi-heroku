@@ -1,0 +1,83 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python prepare.py --input_artifact ../data/census.csv --remote_storage census_storage
+      --output_artifact ../data/cleaned-data.csv --min_fnlgt 12000.0 --max_fnlgt 600000.0
+      --min_capital_loss 0 --max_capital_loss 250 --min_capital_gain 0 --max_capital_gain
+      15000
+    deps:
+    - path: ../data/census.csv
+      hash: md5
+      md5: 145de00f6e6053d3f7044628f9a5b5ff
+      size: 3974474
+    - path: prepare.py
+      hash: md5
+      md5: 0effbceb78963456263cf34ac9f0bbdf
+      size: 4429
+    outs:
+    - path: ../data/cleaned-data.csv
+      hash: md5
+      md5: a4083a5fce51774db1682fe645baf4d0
+      size: 3055445
+  split:
+    cmd: python splitting_data.py --input_artifact ../data/cleaned-data.csv --remote_storage
+      census_storage --test_size 0.2 --random_state 42 --train_path ../data/train-data.csv
+      --test_path ../data/test-data.csv
+    deps:
+    - path: ../data/cleaned-data.csv
+      hash: md5
+      md5: a4083a5fce51774db1682fe645baf4d0
+      size: 3055445
+    - path: splitting_data.py
+      hash: md5
+      md5: 46f2ab497a30bec7e223f928953b3157
+      size: 3371
+    outs:
+    - path: ../data/test-data.csv
+      hash: md5
+      md5: 24f5d62a749d089cefa38d4c2135d9d8
+      size: 610217
+    - path: ../data/train-data.csv
+      hash: md5
+      md5: d2468a6cbe2c896f66da82033a994efe
+      size: 2445383
+  train:
+    cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
+      census_storage --random_state 42 --model_config 
+      /home/kyrillos/Desktop/census-income-classification-using-dvc-github-actions-fastapi-heroku/starter/model_config.json
+      --output_artifact ../model/rf.pkl
+    deps:
+    - path: ../data/train-data.csv
+      hash: md5
+      md5: d2468a6cbe2c896f66da82033a994efe
+      size: 2445383
+    - path: train_model.py
+      hash: md5
+      md5: cd169fea0e0443fe0cc0bd74971f02e2
+      size: 3899
+    outs:
+    - path: ../model/rf.pkl
+      hash: md5
+      md5: 3a0a0031a1f0bb4a1c25b90758cd7b0d
+      size: 49978873
+  evaluate:
+    cmd: python evaluate_model.py --input_artifact ../data/test-data.csv --remote_storage
+      census_storage --models_path ../model/rf.pkl
+    deps:
+    - path: ../data/test-data.csv
+      hash: md5
+      md5: 24f5d62a749d089cefa38d4c2135d9d8
+      size: 610217
+    - path: ../model/rf.pkl
+      hash: md5
+      md5: 3a0a0031a1f0bb4a1c25b90758cd7b0d
+      size: 49978873
+    - path: evaluate_model.py
+      hash: md5
+      md5: 2f5e5793606ff1ac5ab7d77b81430390
+      size: 3191
+    outs:
+    - path: ../dvclive/metrics.json
+      hash: md5
+      md5: 84191e9dcc037f7486b6322e2cc21ca3
+      size: 121

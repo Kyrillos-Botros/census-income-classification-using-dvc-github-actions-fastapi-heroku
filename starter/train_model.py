@@ -46,6 +46,7 @@ def go(args):
     with open(args.model_config) as fp:
         model_config = json.load(fp)
     model_config["random_state"] = args.random_state
+    os.remove(args.model_config)
 
     # Start training process
     logger.info("Start: Training model")
@@ -68,7 +69,7 @@ def go(args):
         pickle.dump(models, f)
 
     #tracking parameters and models
-    with Live(resume= True) as live:
+    with Live(resume= True, dir="../dvclive") as live:
         live.next_step()
         live.log_params(params=model_config)
         live.log_artifact(path=args.output_artifact,
@@ -78,6 +79,7 @@ def go(args):
 
     logger.info("Start: Uploading models to the remote storage")
     os.system(f"cd {file_dir} && dvc add {file_name} "
+              f"&& dvc commit {file_name}"
               f"&& git add {file_name}.dvc"
               f"&& git commit -m tracking models "
               f"&& git push"

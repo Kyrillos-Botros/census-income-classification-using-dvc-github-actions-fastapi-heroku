@@ -39,7 +39,7 @@ def go(args):
         df.to_csv(path, index=False)
 
         # logging artifacts
-        with Live(resume=True) as live:
+        with Live(resume=True, dir="../dvclive") as live:
             live.next_step()
             live.log_artifact(
                 path,
@@ -49,6 +49,7 @@ def go(args):
 
         # Uploading datasets to remote storage
         os.system(f" cd {os.path.dirname(path)} && dvc add {os.path.basename(path)} "
+                  f"&& dvc commit {os.path.basename(path)} "
                   f"&& git add {os.path.basename(path)}.dvc "
                   f"&& git commit -m \"tracking {os.path.basename(path)}.dvc \" "
                   f"&& git push "

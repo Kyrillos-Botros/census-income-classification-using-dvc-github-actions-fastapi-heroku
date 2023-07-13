@@ -58,7 +58,7 @@ def go(args):
     logger.info("Start: Evaluation")
     precision, recall, fbeta= compute_model_metrics(y_test, preds=preds)
 
-    with Live(resume= True) as live:
+    with Live(resume= True, dir="../dvclive") as live:
         live.next_step()
         live.log_metric("precision", precision)
         live.log_metric("recall", recall)
