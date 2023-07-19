@@ -59,3 +59,24 @@ stages:
       hash: md5
       md5: 509da83dd7adc12755984a8908e2c7bf
       size: 49978873
+  evaluate:
+    cmd: python evaluate_model.py --input_artifact ../data/test-data.csv --remote_storage
+      census_storage --models_path ../model/rfmodel.pkl
+    deps:
+    - path: ../data/test-data.csv
+      hash: md5
+      md5: 24f5d62a749d089cefa38d4c2135d9d8
+      size: 610217
+    - path: ../model/rfmodel.pkl
+      hash: md5
+      md5: 509da83dd7adc12755984a8908e2c7bf
+      size: 49978873
+    - path: evaluate_model.py
+      hash: md5
+      md5: 2f5e5793606ff1ac5ab7d77b81430390
+      size: 3191
+    outs:
+    - path: ../dvclive/metrics.json
+      hash: md5
+      md5: 84191e9dcc037f7486b6322e2cc21ca3
+      size: 121
