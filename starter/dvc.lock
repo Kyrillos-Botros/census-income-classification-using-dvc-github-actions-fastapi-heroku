@@ -12,7 +12,7 @@ stages:
       size: 3974474
     - path: prepare.py
       hash: md5
-      md5: 0effbceb78963456263cf34ac9f0bbdf
+      md5: 8bbcc3823b6f6050715e06a13da0337a
       size: 4429
     outs:
     - path: ../data/cleaned-data.csv
@@ -30,8 +30,8 @@ stages:
       size: 3055445
     - path: splitting_data.py
       hash: md5
-      md5: 46f2ab497a30bec7e223f928953b3157
-      size: 3371
+      md5: 584aa94e2c119e235d93a3bc134a2799
+      size: 3396
     outs:
     - path: ../data/test-data.csv
       hash: md5
