@@ -19,3 +19,25 @@ stages:
       hash: md5
       md5: a4083a5fce51774db1682fe645baf4d0
       size: 3055445
+  split:
+    cmd: python splitting_data.py --input_artifact ../data/cleaned-data.csv --remote_storage
+      census_storage --test_size 0.2 --random_state 42 --train_path ../data/train-data.csv
+      --test_path ../data/test-data.csv
+    deps:
+    - path: ../data/cleaned-data.csv
+      hash: md5
+      md5: a4083a5fce51774db1682fe645baf4d0
+      size: 3055445
+    - path: splitting_data.py
+      hash: md5
+      md5: 46f2ab497a30bec7e223f928953b3157
+      size: 3371
+    outs:
+    - path: ../data/test-data.csv
+      hash: md5
+      md5: 24f5d62a749d089cefa38d4c2135d9d8
+      size: 610217
+    - path: ../data/train-data.csv
+      hash: md5
+      md5: d2468a6cbe2c896f66da82033a994efe
+      size: 2445383
