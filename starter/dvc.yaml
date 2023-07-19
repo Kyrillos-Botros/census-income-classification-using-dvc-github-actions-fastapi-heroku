@@ -21,7 +21,7 @@ stages:
     - ../data/train-data.csv
   train:
     cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
-      census_storage --random_state 42--model_config model_config.json --output_artifact
+      census_storage --random_state 42 --model_config model_config.json --output_artifact
       ../model/rfmodel.pkl
     deps:
     - ../data/train-data.csv
