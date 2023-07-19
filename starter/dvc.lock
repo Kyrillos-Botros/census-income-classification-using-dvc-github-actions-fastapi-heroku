@@ -1,16 +1,16 @@
 schema: '2.0'
 stages:
   prepare:
-    cmd: python prepare/prepare.py --input_artifact ../data/census.csv --remote_storage
-      census_storage --output_artifact ../data/cleaned-data.csv --min_fnlgt 12000.0
-      --max_fnlgt 600000.0 --min_capital_loss 0 --max_capital_loss 250 --min_capital_gain
-      0 --max_capital_gain 15000
+    cmd: python prepare.py --input_artifact ../data/census.csv --remote_storage census_storage
+      --output_artifact ../data/cleaned-data.csv --min_fnlgt 12000.0 --max_fnlgt 600000.0
+      --min_capital_loss 0 --max_capital_loss 250 --min_capital_gain 0 --max_capital_gain
+      15000
     deps:
     - path: ../data/census.csv
       hash: md5
       md5: 145de00f6e6053d3f7044628f9a5b5ff
       size: 3974474
-    - path: prepare/prepare.py
+    - path: prepare.py
       hash: md5
       md5: 20d6a1b32ba65fefce022dec80b9f45a
       size: 4432
@@ -20,15 +20,15 @@ stages:
       md5: a4083a5fce51774db1682fe645baf4d0
       size: 3055445
   split:
-    cmd: python split/splitting_data.py --input_artifact ../data/cleaned-data.csv
-      --remote_storage census_storage --test_size 0.2 --random_state 42 --train_path
-      ../data/train-data.csv --test_path ../data/test-data.csv
+    cmd: python splitting_data.py --input_artifact ../data/cleaned-data.csv --remote_storage
+      census_storage --test_size 0.2 --random_state 42 --train_path ../data/train-data.csv
+      --test_path ../data/test-data.csv
     deps:
     - path: ../data/cleaned-data.csv
       hash: md5
       md5: a4083a5fce51774db1682fe645baf4d0
       size: 3055445
-    - path: split/splitting_data.py
+    - path: splitting_data.py
       hash: md5
       md5: 956b093af5e18a10ec8ee77e0ee59323
       size: 3399
