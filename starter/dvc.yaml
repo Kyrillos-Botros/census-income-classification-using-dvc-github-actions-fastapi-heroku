@@ -21,16 +21,16 @@ stages:
     - ../data/train-data.csv
   evaluate:
     cmd: python evaluate_model.py --input_artifact ../data/test-data.csv --remote_storage
-      census_storage --models_path ../model/rf.pkl
+      census_storage --models_path ../model/rfmodel.pkl
     deps:
     - ../data/test-data.csv
-    - ../model/rf.pkl
+    - ../model/rfmodel.pkl
     - evaluate_model.py
     metrics:
     - ../dvclive/metrics.json
   train:
     cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
-      census_storage --random_state 42 --model_config 
+      census_storage --model_config 
       /home/kyrillos/Desktop/census-income-classification-using-dvc-github-actions-fastapi-heroku/starter/model_config.json
       --output_artifact ../model/rfmodel.pkl
     deps:
