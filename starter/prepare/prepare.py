@@ -60,7 +60,7 @@ def go(args):
     current_dir = os.getcwd()
 
     # logging artifact
-    with Live(resume= True, dir="../dvclive") as live:
+    with Live(resume= True, dir="../../dvclive") as live:
         live.next_step()
         live.log_artifact(path= args.output_artifact,
                           type="dataset",

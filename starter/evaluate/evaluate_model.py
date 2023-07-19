@@ -5,9 +5,10 @@ import pandas as pd
 import dvc.api
 from dvclive import Live
 import io
+import dvc.api
 import pickle
-from ml.data import process_data
-from ml.model import inference, compute_model_metrics
+from starter.ml.data import process_data
+from starter.ml.model import inference, compute_model_metrics
 
 logging.basicConfig(
                     level=logging.INFO,
@@ -58,7 +59,7 @@ def go(args):
     logger.info("Start: Evaluation")
     precision, recall, fbeta= compute_model_metrics(y_test, preds=preds)
 
-    with Live(resume= True, dir="../dvclive") as live:
+    with Live(resume= True, dir="../../dvclive") as live:
         live.next_step()
         live.log_metric("precision", precision)
         live.log_metric("recall", recall)

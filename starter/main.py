@@ -9,9 +9,9 @@ warnings.filterwarnings('ignore')
 def go(config: DictConfig):
 
     # Executing prepare.py
-    os.system(f"dvc stage add -f -n prepare -d prepare.py -d ../data/census.csv "
+    os.system(f"dvc stage add -f -n prepare -d prepare/prepare.py -d ../data/census.csv "
               f"-o ../data/cleaned-data.csv "
-              f"python prepare.py --input_artifact ../data/census.csv "
+              f"python prepare/prepare.py --input_artifact ../data/census.csv "
               f"--remote_storage {config['storage']['remote']} "
               f"--output_artifact ../data/cleaned-data.csv "
               f"--min_fnlgt {config['data']['min_fnlgt']} "
@@ -22,9 +22,9 @@ def go(config: DictConfig):
               f"--max_capital_gain {config['data']['max_capital_gain']}")
 
     # Executing splitting_data.py
-    os.system(f"dvc stage add -f -n split -d splitting_data.py -d ../data/cleaned-data.csv "
+    os.system(f"dvc stage add -f -n split -d split/splitting_data.py -d ../data/cleaned-data.csv "
               f"-o ../data/train-data.csv -o ../data/test-data.csv "
-              f"python splitting_data.py --input_artifact ../data/cleaned-data.csv "
+              f"python split/splitting_data.py --input_artifact ../data/cleaned-data.csv "
               f"--remote_storage {config['storage']['remote']} "
               f"--test_size {config['modeling']['test_size']} "
               f"--random_state {config['modeling']['random_state']} "
@@ -37,9 +37,9 @@ def go(config: DictConfig):
     with open(model_config, "w+") as fp:
         json.dump(dict(config["modeling"]["random_forest"].items()), fp)
 
-    os.system(f"dvc stage add -f -n train -d train_model.py -d ../data/train-data.csv "
+    os.system(f"dvc stage add -f -n train -d train/train_model.py -d ../data/train-data.csv "
               f"-o ../model/rfmodel.pkl "
-              f"python train_model.py --input_artifact ../data/train-data.csv "
+              f"python train/train_model.py --input_artifact ../data/train-data.csv "
               f"--remote_storage {config['storage']['remote']} "
               f"--random_state {config['modeling']['random_state']} "
               f"--model_config {model_config}  "
@@ -47,9 +47,8 @@ def go(config: DictConfig):
               )
 
     # Executing evaluation
-    os.system(f"dvc stage add -f -n evaluate -d evaluate_model.py -d ../data/test-data.csv -d ../model/rfmodel.pkl "
-              f"-m ../dvclive/metrics.json "
-              f" python evaluate_model.py --input_artifact ../data/test-data.csv "
+    os.system(f"dvc stage add -f -n evaluate -d evaluate/evaluate_model.py -d ../data/test-data.csv -d ../model/rfmodel.pkl "
+              f" python evaluate/evaluate_model.py --input_artifact ../data/test-data.csv "
               f"--remote_storage {config['storage']['remote']} "
               f"--models_path ../model/rfmodel.pkl"
               )

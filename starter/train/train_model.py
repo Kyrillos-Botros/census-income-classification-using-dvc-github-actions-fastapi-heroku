@@ -9,8 +9,8 @@ import os
 import pickle
 import tempfile
 import json
-from ml.data import process_data
-from ml.model import train_model
+from starter.ml.data import process_data
+from starter.ml.model import train_model
 
 logging.basicConfig(
                     level=logging.INFO,
@@ -80,7 +80,7 @@ def go(args):
     logger.info("End: Uploading models to the remote storage")
 
     #tracking parameters and models
-    with Live(resume= True, dir="../dvclive") as live:
+    with Live(resume= True, dir="../../dvclive") as live:
         live.next_step()
         live.log_params(params=model_config)
         live.log_artifact(path=args.output_artifact,

@@ -1,18 +1,28 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
+It's a compound of models which are
+- "encoder": it's  a one-hot encoder for categorical columns
+- "lb" it's a label binarize for target columns
+- "model": Random forest model from sklearn library which is trained with the parameters exist in "conf/config.yaml" file.
 
 ## Intended Use
+This model will be used  on census dataset to classify the salary if it more or less than 50k
 
 ## Training Data
+It's 80 % of the whole data exists in data folder under the name "train-data.csv" and contains 32561 rows, beside contains 
+6 numerical columns which are ['age', 'fnlgt', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
+and 9 categorical columns which are ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'salary']
 
 ## Evaluation Data
+It's 20 % of the whole data exists in data folder under the name "test-data.csv" and contains 5603 rows, beside contains 
+6 numerical columns which are ['age', 'fnlgt', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
+and 9 categorical columns which are ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'salary']
 
 ## Metrics
-_Please include the metrics used and your model's performance on those metrics._
-
-## Ethical Considerations
+The model was evaluated using recall, precision and f1-score which their values are 0.716, 0.563, 0.6301
 
 ## Caveats and Recommendations
+It's recommended keeping all the folders and paths the same and change only in conf/config.yaml file with different parameters.
+In addition to that, trying different models and hyperparameter tunning

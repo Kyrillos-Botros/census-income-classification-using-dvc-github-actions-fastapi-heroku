@@ -39,7 +39,7 @@ def go(args):
         df.to_csv(path, index=False)
 
         # logging artifacts
-        with Live(resume=True, dir="../dvclive") as live:
+        with Live(resume=True, dir="../../dvclive") as live:
             live.next_step()
             live.log_artifact(
                 path,
