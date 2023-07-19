@@ -14,7 +14,7 @@ modeling:
   random_state: 42
   test_size: 0.2
   random_forest:
-    n_estimators: 200
+    n_estimators: 300
     max_depth: 50
     min_samples_split: 4
     min_samples_leaf: 3
