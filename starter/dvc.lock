@@ -41,3 +41,21 @@ stages:
       hash: md5
       md5: d2468a6cbe2c896f66da82033a994efe
       size: 2445383
+  train:
+    cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
+      census_storage --random_state 42 --model_config model_config.json --output_artifact
+      ../model/rfmodel.pkl
+    deps:
+    - path: ../data/train-data.csv
+      hash: md5
+      md5: d2468a6cbe2c896f66da82033a994efe
+      size: 2445383
+    - path: train_model.py
+      hash: md5
+      md5: 0c26bc1a7ff3eb09c88e5d4473ea7d99
+      size: 3937
+    outs:
+    - path: ../model/rfmodel.pkl
+      hash: md5
+      md5: f1dea3a48dce6c911b1372e76ffbc02e
+      size: 49978873
