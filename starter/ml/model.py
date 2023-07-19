@@ -2,6 +2,8 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 
 # Optional: implement hyperparameter tuning.
+
+
 def train_model(X_train, y_train, m_config):
     """
     Trains a machine learning model and returns it.
@@ -27,7 +29,8 @@ def train_model(X_train, y_train, m_config):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using
+    precision, recall, and F1.
 
     Inputs
     ------

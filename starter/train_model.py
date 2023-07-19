@@ -12,19 +12,22 @@ from ml.data import process_data
 from ml.model import train_model
 
 logging.basicConfig(
-                    level=logging.INFO,
-                    format="%(asctime)s - %(message)s"
-                    )
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s"
+)
 logger = logging.getLogger()
+
 
 def go(args):
 
     # Reading training dataset
     logger.info("Start: training data reading from s3 remote storage")
     training_data_bytes = dvc.api.read(
-        path= args.input_artifact, # insert the path of the file that exists in the storage
-        remote= args.remote_storage, # select the remote storage that exists in .dvc/config if there is more than one
-        mode= "rb" # reading data as bytes
+        # insert the path of the file that exists in the storage
+        path=args.input_artifact,
+        # select the remote storage that exists in .dvc/config
+        remote=args.remote_storage,
+        mode="rb"  # reading data as bytes
     )
     training_data_byte_stream = io.BytesIO(training_data_bytes)
     training_dataframe = pd.read_csv(training_data_byte_stream)
@@ -37,8 +40,10 @@ def go(args):
     # processing training data
     logger.info("Start: processing training data")
     X_train, y_train, encoder, lb = process_data(
-        training_dataframe, categorical_features=cat_features, label="salary", training=True
-    )
+        training_dataframe,
+        categorical_features=cat_features,
+        label="salary",
+        training=True)
     logger.info("End: processing training data")
 
     # Reading model parameters
@@ -67,7 +72,6 @@ def go(args):
     with open(args.output_artifact, 'wb') as f:
         pickle.dump(models, f)
 
-
     logger.info("Start: Uploading models to the remote storage")
     os.system(f"cd {file_dir} && dvc commit {file_name}  "
               f"&& dvc add {file_name}"
@@ -78,8 +82,8 @@ def go(args):
               f"&& cd {current_dir}")
     logger.info("End: Uploading models to the remote storage")
 
-    #tracking parameters and models
-    with Live(resume= True, dir="../../dvclive") as live:
+    # tracking parameters and models
+    with Live(resume=True, dir="../../dvclive") as live:
         live.next_step()
         live.log_params(params=model_config)
         live.log_artifact(path=args.output_artifact,
@@ -87,41 +91,42 @@ def go(args):
                           labels=["encoder", "lb", "model"]
                           )
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="model training")
 
     parser.add_argument(
         "--input_artifact",
-        type= str,
-        help= "training dataset path",
-        required= True
+        type=str,
+        help="training dataset path",
+        required=True
     )
 
     parser.add_argument(
         "--remote_storage",
-        type= str,
-        help= "the remote name that exists in .dvc/config",
+        type=str,
+        help="the remote name that exists in .dvc/config",
         required=True
     )
 
     parser.add_argument(
         "--model_config",
-        type= str,
-        help= "model config json file path",
-        required= True
+        type=str,
+        help="model config json file path",
+        required=True
     )
     parser.add_argument(
         "--random_state",
-        type = int,
-        help= "random seed for model reproducability",
+        type=int,
+        help="random seed for model reproducability",
         required=True
     )
 
     parser.add_argument(
         "--output_artifact",
-        type= str,
-        help= "model_name.pkl",
-        required= True
+        type=str,
+        help="model_name.pkl",
+        required=True
     )
 
     args = parser.parse_args()
