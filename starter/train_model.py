@@ -79,11 +79,11 @@ def go(args):
 
     logger.info("Start: Uploading models to the remote storage")
     os.system(f"cd {file_dir} && dvc add {file_name} "
-              f"&& dvc commit {file_name}"
+              f"&& dvc commit {file_name} "
               f"&& git add {file_name}.dvc"
               f"&& git commit -m tracking models "
-              f"&& git push"
-              f"&& dvc push --remote {args.remote_storage} "
+              f"&& git push {file_name}"
+              f"&& dvc push --remote {args.remote_storage} {file_name} "
               f"&& cd {current_dir}")
     logger.info("End: Uploading models to the remote storage")
 
@@ -105,18 +105,16 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--random_state",
-        type= int,
-        help= "Random State",
-        required= False,
-        default= 42
-    )
-
-    parser.add_argument(
         "--model_config",
         type= str,
         help= "model config json file path",
         required= True
+    )
+    parser.add_argument(
+        "--random_state",
+        type = int,
+        help= "random seed for model reproducability",
+        required=True
     )
 
     parser.add_argument(
