@@ -7,7 +7,6 @@ from dvclive import Live
 import io
 import os
 import pickle
-import tempfile
 import json
 from starter.ml.data import process_data
 from starter.ml.model import train_model
