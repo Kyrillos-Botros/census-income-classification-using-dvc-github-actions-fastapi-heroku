@@ -1,37 +1,37 @@
 schema: '2.0'
 stages:
   prepare:
-    cmd: python prepare.py --input_artifact ../data/census.csv --remote_storage census_storage
-      --output_artifact ../data/cleaned-data.csv --min_fnlgt 12000.0 --max_fnlgt 600000.0
-      --min_capital_loss 0 --max_capital_loss 250 --min_capital_gain 0 --max_capital_gain
-      15000
+    cmd: python prepare/prepare.py --input_artifact ../data/census.csv --remote_storage
+      census_storage --output_artifact ../data/cleaned-data.csv --min_fnlgt 12000.0
+      --max_fnlgt 600000.0 --min_capital_loss 0 --max_capital_loss 250 --min_capital_gain
+      0 --max_capital_gain 15000
     deps:
     - path: ../data/census.csv
       hash: md5
       md5: 145de00f6e6053d3f7044628f9a5b5ff
       size: 3974474
-    - path: prepare.py
+    - path: prepare/prepare.py
       hash: md5
-      md5: 8bbcc3823b6f6050715e06a13da0337a
-      size: 4429
+      md5: 20d6a1b32ba65fefce022dec80b9f45a
+      size: 4432
     outs:
     - path: ../data/cleaned-data.csv
       hash: md5
       md5: a4083a5fce51774db1682fe645baf4d0
       size: 3055445
   split:
-    cmd: python splitting_data.py --input_artifact ../data/cleaned-data.csv --remote_storage
-      census_storage --test_size 0.2 --random_state 42 --train_path ../data/train-data.csv
-      --test_path ../data/test-data.csv
+    cmd: python split/splitting_data.py --input_artifact ../data/cleaned-data.csv
+      --remote_storage census_storage --test_size 0.2 --random_state 42 --train_path
+      ../data/train-data.csv --test_path ../data/test-data.csv
     deps:
     - path: ../data/cleaned-data.csv
       hash: md5
       md5: a4083a5fce51774db1682fe645baf4d0
       size: 3055445
-    - path: splitting_data.py
+    - path: split/splitting_data.py
       hash: md5
-      md5: 584aa94e2c119e235d93a3bc134a2799
-      size: 3396
+      md5: 956b093af5e18a10ec8ee77e0ee59323
+      size: 3399
     outs:
     - path: ../data/test-data.csv
       hash: md5
@@ -42,7 +42,7 @@ stages:
       md5: d2468a6cbe2c896f66da82033a994efe
       size: 2445383
   train:
-    cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
+    cmd: python train/train_model.py --input_artifact ../data/train-data.csv --remote_storage
       census_storage --random_state 42 --model_config model_config.json --output_artifact
       ../model/rfmodel.pkl
     deps:
@@ -50,15 +50,15 @@ stages:
       hash: md5
       md5: d2468a6cbe2c896f66da82033a994efe
       size: 2445383
-    - path: train_model.py
+    - path: train/train_model.py
       hash: md5
-      md5: 54f323e72ae10f9cf5799cdf5c266b17
-      size: 3938
+      md5: 17033d2385a8d5c99fbc96acb66b7154
+      size: 3957
     outs:
     - path: ../model/rfmodel.pkl
       hash: md5
-      md5: 509da83dd7adc12755984a8908e2c7bf
-      size: 49978873
+      md5: dee33a5ea175926495e47106ebe21360
+      size: 74735994
   evaluate:
     cmd: python evaluate_model.py --input_artifact ../data/test-data.csv --remote_storage
       census_storage --models_path ../model/rfmodel.pkl

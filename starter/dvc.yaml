@@ -35,5 +35,3 @@ stages:
     - ../data/test-data.csv
     - ../model/rfmodel.pkl
     - evaluate/evaluate_model.py
-    metrics:
-    - ../dvclive/metrics.json
