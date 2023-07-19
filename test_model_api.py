@@ -1,18 +1,64 @@
+from fastapi.testclient import TestClient
+from main import app
+import pandas as pd
 import pytest
 from starter.ml.model import compute_model_metrics, inference
 from starter.ml.data import process_data
 import pickle
-import pandas as pd
+
+client = TestClient(app)
 
 
-@pytest.fixture(scope="module", params=["../model/rfmodel.pkl"])
+def test_welcome():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == "Welcome to census income classification APP"
+
+
+def test_predict_output():
+    response = client.post(
+        "/predict",
+        json={
+            "path": "data/test-data.csv"
+        }
+    )
+    result = set(response.json())
+    assert response.status_code == 200
+    assert result.issubset({0, 1})
+
+
+def test_predict_type():
+    response = client.post(
+        "/predict",
+        json={
+            "path": "data/test-data.csv"
+        }
+    )
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+
+
+def test_predict_length():
+    response = client.post(
+        "/predict",
+        json={
+            "path": "data/test-data.csv"
+        }
+    )
+    df = pd.read_csv("data/test-data.csv")
+    assert response.status_code == 200
+    assert len(response.json()) == df.shape[0]
+
+
+# ################# Test models #################
+@pytest.fixture(scope="module", params=["model/rfmodel.pkl"])
 def model(request):
     with open(request.param, "rb") as f:
         model = pickle.load(f)
     return model
 
 
-@pytest.fixture(scope="module", params=["../data/test-data.csv"])
+@pytest.fixture(scope="module", params=["data/test-data.csv"])
 def test_data(request):
     return pd.read_csv(request.param)
 
