@@ -39,6 +39,3 @@ jobs:
       run: |
         pytest . -vv
         
-    - name: Test_model with pytest
-      run: |
-        cd starter && pytest . -vv
