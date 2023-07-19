@@ -2,6 +2,11 @@ params:
 - params.yaml
 metrics:
 - metrics.json
-plots:
-- plots/metrics:
-    x: step
+artifacts:
+  rfmodel:
+    path: ../model/rfmodel.pkl
+    type: model
+    labels:
+    - encoder
+    - lb
+    - model

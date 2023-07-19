@@ -34,18 +34,18 @@ def go(config: DictConfig):
     #           )
 
     # Executing train_model.py
-    # model_config = os.path.join(os.getcwd(), "model_config.json")
-    # with open(model_config, "w+") as fp:
-    #     json.dump(dict(config["modeling"]["random_forest"].items()), fp)
-    #
-    # os.system(f"dvc stage add -f -n train -d train_model.py -d ../data/train-data.csv "
-    #           f"-o ../model/rfmodel.pkl "
-    #           f"python train_model.py --input_artifact ../data/train-data.csv "
-    #           f"--remote_storage {config['storage']['remote']} "
-    #           f"--random_state {config['modeling']['random_state']}"
-    #           f"--model_config {model_config}  "
-    #           f"--output_artifact ../model/rfmodel.pkl"
-    #           )
+    model_config = "model_config.json"
+    with open(model_config, "w+") as fp:
+        json.dump(dict(config["modeling"]["random_forest"].items()), fp)
+
+    os.system(f"dvc stage add -f -n train -d train_model.py -d ../data/train-data.csv "
+              f"-o ../model/rfmodel.pkl "
+              f"python train_model.py --input_artifact ../data/train-data.csv "
+              f"--remote_storage {config['storage']['remote']} "
+              f"--random_state {config['modeling']['random_state']} "
+              f"--model_config {model_config}  "
+              f"--output_artifact ../model/rfmodel.pkl"
+              )
 
     # # Executing evaluation
     # os.system(f"dvc stage add -f -n evaluate -d evaluate_model.py -d ../data/test-data.csv -d ../model/rfmodel.pkl "
@@ -59,7 +59,6 @@ def go(config: DictConfig):
               "&& git commit -m \"tracking dvc.yaml\" "
               "&& git push")
 
-    os.system("dvc exp run")
 
 if __name__ == "__main__":
     go()

@@ -68,6 +68,17 @@ def go(args):
     with open(args.output_artifact, 'wb') as f:
         pickle.dump(models, f)
 
+
+    logger.info("Start: Uploading models to the remote storage")
+    os.system(f"cd {file_dir} && dvc commit {file_name}  "
+              f"&& dvc add {file_name}"
+              f"&& git add {file_name}.dvc"
+              f"&& git commit -m tracking models "
+              f"&& git push {file_name}"
+              f"&& dvc push --remote {args.remote_storage} {file_name} "
+              f"&& cd {current_dir}")
+    logger.info("End: Uploading models to the remote storage")
+
     #tracking parameters and models
     with Live(resume= True, dir="../dvclive") as live:
         live.next_step()
@@ -76,16 +87,6 @@ def go(args):
                           type="model",
                           labels=["encoder", "lb", "model"]
                           )
-
-    logger.info("Start: Uploading models to the remote storage")
-    os.system(f"cd {file_dir} && dvc add {file_name} "
-              f"&& dvc commit {file_name} "
-              f"&& git add {file_name}.dvc"
-              f"&& git commit -m tracking models "
-              f"&& git push {file_name}"
-              f"&& dvc push --remote {args.remote_storage} {file_name} "
-              f"&& cd {current_dir}")
-    logger.info("End: Uploading models to the remote storage")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="model training")
