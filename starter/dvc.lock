@@ -42,7 +42,7 @@ stages:
       md5: d2468a6cbe2c896f66da82033a994efe
       size: 2445383
   train:
-    cmd: python train/train_model.py --input_artifact ../data/train-data.csv --remote_storage
+    cmd: python train_model.py --input_artifact ../data/train-data.csv --remote_storage
       census_storage --random_state 42 --model_config model_config.json --output_artifact
       ../model/rfmodel.pkl
     deps:
@@ -50,18 +50,18 @@ stages:
       hash: md5
       md5: d2468a6cbe2c896f66da82033a994efe
       size: 2445383
-    - path: train/train_model.py
+    - path: train_model.py
       hash: md5
-      md5: 17033d2385a8d5c99fbc96acb66b7154
-      size: 3957
+      md5: 70a3dffb22db61f9d41d0b9099f833d8
+      size: 3925
     outs:
     - path: ../model/rfmodel.pkl
       hash: md5
-      md5: dee33a5ea175926495e47106ebe21360
+      md5: e00cb28aff0a4196a4ac167cac4ae479
       size: 74735994
   evaluate:
-    cmd: python evaluate/evaluate_model.py --input_artifact ../data/test-data.csv
-      --remote_storage census_storage --models_path ../model/rfmodel.pkl
+    cmd: python evaluate_model.py --input_artifact ../data/test-data.csv --remote_storage
+      census_storage --models_path ../model/rfmodel.pkl
     deps:
     - path: ../data/test-data.csv
       hash: md5
@@ -69,9 +69,9 @@ stages:
       size: 610217
     - path: ../model/rfmodel.pkl
       hash: md5
-      md5: dee33a5ea175926495e47106ebe21360
+      md5: e00cb28aff0a4196a4ac167cac4ae479
       size: 74735994
-    - path: evaluate/evaluate_model.py
+    - path: evaluate_model.py
       hash: md5
-      md5: 8d69901538d2b6da776eacb12d4570e6
-      size: 3210
+      md5: 88e75e758867655f330554348b238e20
+      size: 3209

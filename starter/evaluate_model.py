@@ -7,8 +7,8 @@ from dvclive import Live
 import io
 import dvc.api
 import pickle
-from starter.ml.data import process_data
-from starter.ml.model import inference, compute_model_metrics
+from ml.data import process_data
+from ml.model import inference, compute_model_metrics
 
 logging.basicConfig(
                     level=logging.INFO,

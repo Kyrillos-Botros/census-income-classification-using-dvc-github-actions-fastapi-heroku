@@ -8,8 +8,8 @@ import io
 import os
 import pickle
 import json
-from starter.ml.data import process_data
-from starter.ml.model import train_model
+from ml.data import process_data
+from ml.model import train_model
 
 logging.basicConfig(
                     level=logging.INFO,
