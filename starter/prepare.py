@@ -67,7 +67,7 @@ def go(args):
                           desc="Preprocessed Data"
                           )
 
-    os.system(f"cd {file_dir} && dvc add {file_name} && dvc commit {file_name} "
+    os.system(f"cd {file_dir} && dvc commit {file_name} && dvc add {file_name} "
               f"&& git add {file_name}.dvc "
               f"&& git commit -m \"tracking {file_name}.dvc \" "
               f"&& git push " 

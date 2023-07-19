@@ -3,10 +3,7 @@ params:
 metrics:
 - metrics.json
 artifacts:
-  rfmodel:
-    path: ../model/rfmodel.pkl
-    type: model
-    labels:
-    - encoder
-    - lb
-    - model
+  test-data:
+    path: ../data/test-data.csv
+    type: test-data
+    desc: test-data

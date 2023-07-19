@@ -1,4 +1,5 @@
 [core]
     remote = census_storage
+    autostage = true
 ['remote "census_storage"']
     url = s3://kyrillos-botros-census-storage

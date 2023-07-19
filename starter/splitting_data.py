@@ -48,8 +48,9 @@ def go(args):
             )
 
         # Uploading datasets to remote storage
-        os.system(f" cd {os.path.dirname(path)} && dvc add {os.path.basename(path)} "
+        os.system(f" cd {os.path.dirname(path)}  "
                   f"&& dvc commit {os.path.basename(path)} "
+                  f"&& && dvc add {os.path.basename(path)}"
                   f"&& git add {os.path.basename(path)}.dvc "
                   f"&& git commit -m \"tracking {os.path.basename(path)}.dvc \" "
                   f"&& git push "
