@@ -29,11 +29,13 @@ The purpose of this project is to build a pipeline using data version control (d
 │   │   ├── data.py
 │   ├── dvc.lock
 │   ├── dvc.yaml
+│   ├── slice_output.txt
 │   ├── main.py
 │   ├── prepare.py
 │   ├── splitting_data.py
 │   ├── train_model.py
 │   ├── evaluate_model.py
+│   ├── evaluate_slices.py
 ├── main.py
 ├── test_model_api.py
 ├── heroku-app-post.py
