@@ -82,7 +82,7 @@ def go(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="model training")
+    parser = argparse.ArgumentParser(description="model evaluation")
 
     parser.add_argument(
         "--input_artifact",
