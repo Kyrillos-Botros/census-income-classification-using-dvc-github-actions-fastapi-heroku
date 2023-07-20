@@ -1,0 +1,508 @@
+reference = all_categories
+precision: 0.7171610169491526
+recall: 0.5651085141903172
+fbeta: 0.6321195144724556
+
+
+
+workclass = Private
+precision: 0.7067901234567902
+recall: 0.5734557595993323
+fbeta: 0.6331797235023042
+
+workclass = Federal-gov
+precision: 0.6353322528363047
+recall: 0.654424040066778
+fbeta: 0.644736842105263
+
+workclass = State-gov
+precision: 0.7387173396674585
+recall: 0.5191986644407346
+fbeta: 0.6098039215686274
+
+workclass = Self-emp-not-inc
+precision: 0.762214983713355
+recall: 0.39065108514190316
+fbeta: 0.5165562913907285
+
+workclass = Self-emp-inc
+precision: 0.6939364773820982
+recall: 0.6018363939899833
+fbeta: 0.6446133214126062
+
+workclass = Local-gov
+precision: 0.7217194570135747
+recall: 0.5325542570951586
+fbeta: 0.6128722382324688
+
+workclass = Without-pay
+precision: 0.7268722466960352
+recall: 0.5509181969949917
+fbeta: 0.6267806267806267
+
+
+
+education = Some-college
+precision: 0.7160751565762005
+recall: 0.5726210350584308
+fbeta: 0.6363636363636365
+
+education = 11th
+precision: 0.7231947483588621
+recall: 0.5517529215358932
+fbeta: 0.6259469696969697
+
+education = Bachelors
+precision: 0.7156348373557188
+recall: 0.5692821368948247
+fbeta: 0.6341236634123664
+
+education = HS-grad
+precision: 0.7333333333333333
+recall: 0.5417362270450752
+fbeta: 0.6231397023523765
+
+education = 1st-4th
+precision: 0.721436343852013
+recall: 0.5534223706176962
+fbeta: 0.6263580538497875
+
+education = 9th
+precision: 0.721436343852013
+recall: 0.5534223706176962
+fbeta: 0.6263580538497875
+
+education = Masters
+precision: 0.7148846960167715
+recall: 0.5692821368948247
+fbeta: 0.633828996282528
+
+education = Assoc-voc
+precision: 0.7225244831338411
+recall: 0.5542570951585977
+fbeta: 0.627302786962683
+
+education = 12th
+precision: 0.7222832052689352
+recall: 0.5492487479131887
+fbeta: 0.6239924134660977
+
+education = 5th-6th
+precision: 0.7211328976034859
+recall: 0.5525876460767947
+fbeta: 0.6257088846880908
+
+education = Assoc-acdm
+precision: 0.7238723872387238
+recall: 0.5492487479131887
+fbeta: 0.6245847176079734
+
+education = 10th
+precision: 0.7221006564551422
+recall: 0.5509181969949917
+fbeta: 0.625
+
+education = 7th-8th
+precision: 0.7263626251390434
+recall: 0.5450751252086812
+fbeta: 0.6227944682880305
+
+education = Doctorate
+precision: 0.7174840085287847
+recall: 0.5617696160267112
+fbeta: 0.6301498127340823
+
+education = Preschool
+precision: 0.721436343852013
+recall: 0.5534223706176962
+fbeta: 0.6263580538497875
+
+education = Prof-school
+precision: 0.7119170984455958
+recall: 0.5734557595993323
+fbeta: 0.6352288488210818
+
+
+
+marital-status = Married-civ-spouse
+precision: 0.5376884422110553
+recall: 0.6252086811352254
+fbeta: 0.5781551524507912
+
+marital-status = Never-married
+precision: 0.8947368421052632
+recall: 0.1986644407345576
+fbeta: 0.3251366120218579
+
+marital-status = Married-spouse-absent
+precision: 0.864516129032258
+recall: 0.22370617696160267
+fbeta: 0.35543766578249336
+
+marital-status = Widowed
+precision: 0.8562874251497006
+recall: 0.2387312186978297
+fbeta: 0.37336814621409925
+
+marital-status = Divorced
+precision: 0.8515151515151516
+recall: 0.2345575959933222
+fbeta: 0.3678010471204189
+
+marital-status = Separated
+precision: 0.860248447204969
+recall: 0.23121869782971619
+fbeta: 0.3644736842105263
+
+marital-status = Married-AF-spouse
+precision: 0.8698412698412699
+recall: 0.2287145242070117
+fbeta: 0.36219431592861867
+
+
+
+occupation = Exec-managerial
+precision: 0.6098310291858678
+recall: 0.662771285475793
+fbeta: 0.6352
+
+occupation = Craft-repair
+precision: 0.7322738386308069
+recall: 0.5
+fbeta: 0.5942460317460319
+
+occupation = Prof-specialty
+precision: 0.6698473282442748
+recall: 0.5859766277128547
+fbeta: 0.6251113089937668
+
+occupation = Adm-clerical
+precision: 0.7332521315468941
+recall: 0.5025041736227045
+fbeta: 0.5963348192174344
+
+occupation = Handlers-cleaners
+precision: 0.7972027972027972
+recall: 0.3806343906510851
+fbeta: 0.5152542372881356
+
+occupation = Transport-moving
+precision: 0.7546099290780142
+recall: 0.44407345575959933
+fbeta: 0.55911718339464
+
+occupation = Sales
+precision: 0.7069327731092437
+recall: 0.5617696160267112
+fbeta: 0.626046511627907
+
+occupation = Other-service
+precision: 0.8135593220338984
+recall: 0.28046744574290483
+fbeta: 0.4171322160148976
+
+occupation = Farming-fishing
+precision: 0.8253012048192772
+recall: 0.34307178631051755
+fbeta: 0.4846698113207548
+
+occupation = Protective-serv
+precision: 0.7198275862068966
+recall: 0.5575959933222037
+fbeta: 0.6284101599247414
+
+occupation = Machine-op-inspct
+precision: 0.7601880877742947
+recall: 0.4048414023372287
+fbeta: 0.528322440087146
+
+occupation = Tech-support
+precision: 0.662533215234721
+recall: 0.6243739565943238
+fbeta: 0.6428878384185647
+
+occupation = Priv-house-serv
+precision: 0.7370892018779343
+recall: 0.5242070116861436
+fbeta: 0.6126829268292684
+
+occupation = Armed-Forces
+precision: 0.7362250879249707
+recall: 0.5242070116861436
+fbeta: 0.6123842028278889
+
+
+
+relationship = Husband
+precision: 0.7159574468085106
+recall: 0.5617696160267112
+fbeta: 0.6295603367633301
+
+relationship = Wife
+precision: 0.7008032128514057
+recall: 0.5826377295492488
+fbeta: 0.6362807657247037
+
+relationship = Not-in-family
+precision: 0.745742092457421
+recall: 0.511686143572621
+fbeta: 0.6069306930693069
+
+relationship = Unmarried
+precision: 0.7422934648581998
+recall: 0.5025041736227045
+fbeta: 0.5993031358885018
+
+relationship = Own-child
+precision: 0.759020618556701
+recall: 0.49165275459098495
+fbeta: 0.5967578520770009
+
+relationship = Other-relative
+precision: 0.7569141193595342
+recall: 0.4340567612687813
+fbeta: 0.5517241379310345
+
+
+
+race = White
+precision: 0.7132352941176471
+recall: 0.5667779632721202
+fbeta: 0.6316279069767442
+
+race = Black
+precision: 0.7321016166281755
+recall: 0.5292153589315526
+fbeta: 0.6143410852713179
+
+race = Asian-Pac-Islander
+precision: 0.7424593967517401
+recall: 0.5342237061769616
+fbeta: 0.6213592233009708
+
+race = Amer-Indian-Eskimo
+precision: 0.743859649122807
+recall: 0.5308848080133556
+fbeta: 0.6195811008280565
+
+race = Other
+precision: 0.7521367521367521
+recall: 0.5141903171953256
+fbeta: 0.6108081308874566
+
+
+
+sex = Male
+precision: 0.7180851063829787
+recall: 0.5634390651085142
+fbeta: 0.6314312441534143
+
+sex = Female
+precision: 0.7086776859504132
+recall: 0.5726210350584308
+fbeta: 0.6334256694367498
+
+
+
+native-country = United-States
+precision: 0.7141350210970464
+recall: 0.5651085141903172
+fbeta: 0.6309412861136999
+
+native-country = Mexico
+precision: 0.7379553466509988
+recall: 0.5242070116861436
+fbeta: 0.6129819424109322
+
+native-country = China
+precision: 0.732650739476678
+recall: 0.5375626043405676
+fbeta: 0.6201251805488684
+
+native-country = Cuba
+precision: 0.7275784753363229
+recall: 0.5417362270450752
+fbeta: 0.6210526315789475
+
+native-country = Ireland
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = India
+precision: 0.7361751152073732
+recall: 0.5333889816360601
+fbeta: 0.6185866408518877
+
+native-country = Philippines
+precision: 0.7227615965480043
+recall: 0.5592654424040067
+fbeta: 0.6305882352941177
+
+native-country = Jamaica
+precision: 0.7301587301587301
+recall: 0.5375626043405676
+fbeta: 0.6192307692307693
+
+native-country = England
+precision: 0.7332576617480137
+recall: 0.5392320534223706
+fbeta: 0.6214526214526214
+
+native-country = Columbia
+precision: 0.7321225879682179
+recall: 0.5383973288814691
+fbeta: 0.6204906204906204
+
+native-country = Yugoslavia
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Canada
+precision: 0.7262569832402235
+recall: 0.5425709515859767
+fbeta: 0.6211180124223603
+
+native-country = Vietnam
+precision: 0.7318181818181818
+recall: 0.5375626043405676
+fbeta: 0.6198267564966313
+
+native-country = Iran
+precision: 0.7327293318233296
+recall: 0.5400667779632721
+fbeta: 0.6218164344065353
+
+native-country = Germany
+precision: 0.7276785714285714
+recall: 0.5442404006677797
+fbeta: 0.6227316141356256
+
+native-country = Portugal
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Puerto-Rico
+precision: 0.7309007981755986
+recall: 0.5350584307178631
+fbeta: 0.6178313253012048
+
+native-country = Dominican-Republic
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Nicaragua
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Haiti
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = El-Salvador
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = France
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Peru
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Guatemala
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Japan
+precision: 0.7321225879682179
+recall: 0.5383973288814691
+fbeta: 0.6204906204906204
+
+native-country = Greece
+precision: 0.7340182648401826
+recall: 0.5367278797996661
+fbeta: 0.6200578592092575
+
+native-country = Taiwan
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = South
+precision: 0.7327981651376146
+recall: 0.5333889816360601
+fbeta: 0.6173913043478261
+
+native-country = Scotland
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Ecuador
+precision: 0.7321225879682179
+recall: 0.5383973288814691
+fbeta: 0.6204906204906204
+
+native-country = Poland
+precision: 0.7321225879682179
+recall: 0.5383973288814691
+fbeta: 0.6204906204906204
+
+native-country = Hungary
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Italy
+precision: 0.7181136120042872
+recall: 0.5592654424040067
+fbeta: 0.6288127639605818
+
+native-country = Laos
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Hong
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Thailand
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Honduras
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Cambodia
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Trinadad&Tobago
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+native-country = Outlying-US(Guam-USVI-etc)
+precision: 0.7324263038548753
+recall: 0.5392320534223706
+fbeta: 0.6211538461538461
+
+
+
