@@ -8,6 +8,29 @@ import pickle
 
 client = TestClient(app)
 
+@pytest.fixture(scope="module", params=["data/test-data.csv"])
+def test_data(request):
+    return pd.read_csv(request.param)
+
+@pytest.fixture(scope="module", params=["model/rfmodel.pkl"])
+def model(request):
+    with open(request.param, "rb") as f:
+        model = pickle.load(f)
+    return model
+
+@pytest.fixture
+def data_above_50k_func(test_data):
+    data_above_50k = test_data[test_data["salary"] == ">50K"].copy().iloc[[0, 3]]
+    path = "data/test-data-above-50k.csv"
+    data_above_50k.to_csv(path, index=False)
+    return path
+
+@pytest.fixture
+def data_below_50k_func(test_data):
+    data_below_50k = test_data[test_data["salary"] == "<=50K"].copy().iloc[:1]
+    path = "data/test-data-below-50k.csv"
+    data_below_50k.to_csv(path, index=False)
+    return path
 
 def test_welcome():
     response = client.get("/")
@@ -26,6 +49,27 @@ def test_predict_output():
     assert response.status_code == 200
     assert result.issubset({0, 1})
 
+def test_predict_above_50k(data_above_50k_func):
+    response = client.post(
+        "/predict",
+        json={
+            "path": data_above_50k_func
+        }
+    )
+    result = set(response.json())
+    assert response.status_code == 200
+    assert 1 in result
+
+def test_predict_below_50k(data_below_50k_func):
+    response = client.post(
+        "/predict",
+        json={
+            "path": data_below_50k_func
+        }
+    )
+    result = set(response.json())
+    assert response.status_code == 200
+    assert 0 in result
 
 def test_predict_type():
     response = client.post(
@@ -51,17 +95,6 @@ def test_predict_length():
 
 
 # ################# Test models #################
-@pytest.fixture(scope="module", params=["model/rfmodel.pkl"])
-def model(request):
-    with open(request.param, "rb") as f:
-        model = pickle.load(f)
-    return model
-
-
-@pytest.fixture(scope="module", params=["data/test-data.csv"])
-def test_data(request):
-    return pd.read_csv(request.param)
-
 
 def test_inference(model, test_data):
     cat_features = test_data.select_dtypes(include=['object']).columns
