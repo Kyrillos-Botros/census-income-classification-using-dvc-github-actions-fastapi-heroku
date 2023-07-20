@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 import pandas as pd
+import json
 import pytest
 from starter.ml.model import compute_model_metrics, inference
 from starter.ml.data import process_data
@@ -18,19 +19,19 @@ def model(request):
         model = pickle.load(f)
     return model
 
-@pytest.fixture
+@pytest.fixture()
 def data_above_50k_func(test_data):
     data_above_50k = test_data[test_data["salary"] == ">50K"].copy().iloc[[3]]
-    path = "data/test-data-above-50k.csv"
-    data_above_50k.to_csv(path, index=False)
-    return path
+    data_above_50k = data_above_50k.drop("salary", axis=1)
+    data_above_50k_dict = data_above_50k.to_dict(orient="records")[0]
+    return data_above_50k_dict
 
 @pytest.fixture
 def data_below_50k_func(test_data):
     data_below_50k = test_data[test_data["salary"] == "<=50K"].copy().iloc[:1]
-    path = "data/test-data-below-50k.csv"
-    data_below_50k.to_csv(path, index=False)
-    return path
+    data_below_50k = data_below_50k.drop("salary", axis=1)
+    data_below_50k_dict = data_below_50k.to_dict(orient="records")[0]
+    return data_below_50k_dict
 
 def test_welcome():
     response = client.get("/")
@@ -38,60 +39,44 @@ def test_welcome():
     assert response.json() == "Welcome to census income classification APP"
 
 
-def test_predict_output():
-    response = client.post(
-        "/predict",
-        json={
-            "path": "data/test-data.csv"
-        }
-    )
-    result = set(response.json())
-    assert response.status_code == 200
-    assert result.issubset({0, 1})
-
 def test_predict_above_50k(data_above_50k_func):
+
     response = client.post(
         "/predict",
-        json={
-            "path": data_above_50k_func
-        }
+        json=data_above_50k_func
     )
     result = set(response.json())
+
     assert response.status_code == 200
     assert 1 in result
 
 def test_predict_below_50k(data_below_50k_func):
+
+
     response = client.post(
         "/predict",
-        json={
-            "path": data_below_50k_func
-        }
+        json=data_below_50k_func
     )
     result = set(response.json())
     assert response.status_code == 200
     assert 0 in result
 
-def test_predict_type():
+def test_predict_type(test_data):
     response = client.post(
         "/predict",
-        json={
-            "path": "data/test-data.csv"
-        }
+        json=test_data.to_dict(orient="records")[0]
     )
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 
-def test_predict_length():
+def test_predict_length(test_data):
     response = client.post(
         "/predict",
-        json={
-            "path": "data/test-data.csv"
-        }
+       json= test_data.to_dict(orient="records")[0]
     )
-    df = pd.read_csv("data/test-data.csv")
     assert response.status_code == 200
-    assert len(response.json()) == df.shape[0]
+    assert len(response.json()) == test_data.shape[0]
 
 
 # ################# Test models #################
