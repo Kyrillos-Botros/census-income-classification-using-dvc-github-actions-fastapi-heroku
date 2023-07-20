@@ -20,7 +20,7 @@ def model(request):
 
 @pytest.fixture
 def data_above_50k_func(test_data):
-    data_above_50k = test_data[test_data["salary"] == ">50K"].copy().iloc[[0, 3]]
+    data_above_50k = test_data[test_data["salary"] == ">50K"].copy().iloc[[3]]
     path = "data/test-data-above-50k.csv"
     data_above_50k.to_csv(path, index=False)
     return path

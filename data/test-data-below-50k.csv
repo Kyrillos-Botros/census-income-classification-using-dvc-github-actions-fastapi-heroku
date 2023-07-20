@@ -1,0 +1,2 @@
+age,workclass,fnlgt,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,salary
+22,Private,369387,11th,7,Married-civ-spouse,Craft-repair,Husband,White,Male,0,0,35,United-States,<=50K

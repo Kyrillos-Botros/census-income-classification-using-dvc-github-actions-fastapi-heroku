@@ -15,6 +15,14 @@ app = FastAPI()
 
 class PredictInput(BaseModel):
     path: str
+    class Config:
+        schema_extra = {
+            "examples": [
+                {
+                "path": "data/test-data.csv"
+                }
+            ]
+        }
 
 
 @app.get("/")
